@@ -1,0 +1,24 @@
+{
+    "name": "rsully/galgen",
+    "description": "Generate a simple HTML viewer for an image gallery",
+    "authors": [
+        {
+            "name": "Ryan",
+            "email": "rsul.dev@me.com"
+        }
+    ],
+
+    "require": {
+    },
+    "require-dev": {
+    },
+
+    "autoload": {
+    	"psr-4": {
+    		"RSully\\Galgen\\": "src/"
+    	},
+        "files": [
+            "src/helpers.php"
+        ]
+    }
+}
