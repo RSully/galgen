@@ -63,7 +63,7 @@ class Generator {
 	}
 	public function getOutputPath()
 	{
-		return $this->getPath() . DIRECTORY_SEPARATOR . $this->config()['output'];
+		return $this->getPath() . '/' . $this->config()['output'];
 	}
 
 	public function images()
@@ -110,14 +110,14 @@ class Generator {
 			'images' => $imageData,
 			'title' => basename($this->getPath()),
 		]);
-		file_put_contents($output . DIRECTORY_SEPARATOR . 'data.json', $data);
+		file_put_contents($output . '/' . 'data.json', $data);
 
 		/**
 		 * Add setup code
 		 */
-		$file = $output . DIRECTORY_SEPARATOR . 'index.php';
+		$file = $output . '/index.php';
 
-		$contents = file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'prepend.php') . PHP_EOL . file_get_contents($file);
+		$contents = file_get_contents(__DIR__ . '/prepend.php') . "\n" . file_get_contents($file);
 		file_put_contents($file, $contents);
 	}
 
