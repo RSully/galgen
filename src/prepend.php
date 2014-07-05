@@ -8,10 +8,8 @@ $title = $_gg_data['title'];
 if (isset($_GET['image']) && in_array($_GET['image'], $images))
 {
 	$image = $_GET['image'];
-}
 
-if ($image)
-{
+
 	$imageIndex = array_search($image, $images);
 
 	$imagePreviousIndex = $imageIndex - 1;
