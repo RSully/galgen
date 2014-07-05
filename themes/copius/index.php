@@ -1,8 +1,7 @@
 <?php
-if ( ! isset($image))
+function ea($a)
 {
-	header('Location: ?image=' . urlencode($images[0]));
-	exit;
+	return htmlspecialchars(urlencode($a));
 }
 ?>
 
@@ -14,14 +13,21 @@ if ( ! isset($image))
 	<link rel="stylesheet" type="text/css" href="static/reset.css">
 	<script type="text/javascript" src="static/jquery-2.1.1.min.js"></script>
 
+
+	<style type="text/css">
+	.col {
+		float: left;
+	}
+	</style>
+
 	<script type="text/javascript">
 	imagePrevious = <?=json_encode(isset($imagePrevious) ? $imagePrevious : null)?>;
 	imageNext = <?=json_encode(isset($imageNext) ? $imageNext : null)?>;
 
 	function resizeImage()
 	{
-		var img = $('#image');
-		var map = $('map[name=imageMap]');
+		var img = $('#image img');
+		var map = $('#image map[name=imageMap]');
 
 		img.height($(window).height());
 
@@ -57,7 +63,7 @@ if ( ! isset($image))
 	$(document).ready(function()
 	{
 		// Handle resizing and making the image as big as possible
-		$('#image').on('load', function()
+		$('#image img').on('load', function()
 		{
 			resizeImage();
 		});
@@ -87,16 +93,37 @@ if ( ! isset($image))
 </head>
 <body>
 	<?php if (isset($image)): ?>
-		<img id="image" usemap="#imageMap" src="<?=htmlspecialchars(urlencode($image))?>">
 
-		<map name="imageMap">
-			<?php if (isset($imagePrevious)): ?>
-				<area shape="rect" coords="0,0,0,0" data-coordsperc="0, 0, 0.5, 1" href="?image=<?=htmlspecialchars(urlencode($imagePrevious))?>">
-			<?php endif; ?>
-			<?php if (isset($imageNext)): ?>
-				<area shape="rect" coords="0,0,0,0" data-coordsperc="0.5, 0, 1, 1" href="?image=<?=htmlspecialchars(urlencode($imageNext))?>">
-			<?php endif; ?>
-		</map>
+		<div id="image">
+
+			<img usemap="#imageMap" src="<?=ea($image)?>">
+
+			<map name="imageMap">
+				<area shape="rect" coords="0,0,0,0" data-coordsperc="0, 0, 1, .2" href="?">
+				<?php if (isset($imagePrevious)): ?>
+					<area shape="rect" coords="0,0,0,0" data-coordsperc="0, .2, 0.5, 1" href="?image=<?=ea($imagePrevious)?>">
+				<?php endif; ?>
+				<?php if (isset($imageNext)): ?>
+					<area shape="rect" coords="0,0,0,0" data-coordsperc="0.5, .2, 1, 1" href="?image=<?=ea($imageNext)?>">
+				<?php endif; ?>
+			</map>
+
+		</div>
+
+	<?php else: ?>
+
+		<div id="images" class="row">
+
+			<?php foreach ($images as $image): ?>
+				<div class="col">
+					<a href="?image=<?=ea($image)?>">
+						<img height="200" src="<?=ea($image)?>">
+					</a>
+				</div>
+			<?php endforeach; ?>
+
+		</div>
+
 	<?php endif; ?>
 </body>
 </html>
