@@ -20,7 +20,27 @@ if ( ! isset($image))
 
 	function resizeImage()
 	{
-		$('#image').height($(window).height());
+		var img = $('#image');
+		var map = $('map[name=imageMap]');
+
+		img.height($(window).height());
+
+		var height = img.height();
+		var width = img.width();
+
+		map.children('area').each(function()
+		{
+			var coordsPerc = $(this).data('coordsperc').split(',');
+
+			var coords = [
+				coordsPerc[0] * width,
+				coordsPerc[1] * height,
+				coordsPerc[2] * width,
+				coordsPerc[3] * height
+			];
+
+			$(this).attr('coords', coords.join(', '));
+		});
 	}
 
 	function gotoImage(image)
@@ -37,7 +57,10 @@ if ( ! isset($image))
 	$(document).ready(function()
 	{
 		// Handle resizing and making the image as big as possible
-		resizeImage();
+		$('#image').on('load', function()
+		{
+			resizeImage();
+		});
 		$(window).on('resize', function()
 		{
 			resizeImage();
@@ -64,7 +87,16 @@ if ( ! isset($image))
 </head>
 <body>
 	<?php if (isset($image)): ?>
-		<img id="image" src="<?=htmlspecialchars(urlencode($image))?>">
+		<img id="image" usemap="#imageMap" src="<?=htmlspecialchars(urlencode($image))?>">
+
+		<map name="imageMap">
+			<?php if (isset($imagePrevious)): ?>
+				<area shape="rect" coords="0,0,0,0" data-coordsperc="0, 0, 0.5, 1" href="?image=<?=htmlspecialchars(urlencode($imagePrevious))?>">
+			<?php endif; ?>
+			<?php if (isset($imageNext)): ?>
+				<area shape="rect" coords="0,0,0,0" data-coordsperc="0.5, 0, 1, 1" href="?image=<?=htmlspecialchars(urlencode($imageNext))?>">
+			<?php endif; ?>
+		</map>
 	<?php endif; ?>
 </body>
 </html>
