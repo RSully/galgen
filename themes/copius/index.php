@@ -64,7 +64,7 @@ if ( ! isset($image))
 </head>
 <body>
 	<?php if (isset($image)): ?>
-		<img id="image" src="<?=$image?>">
+		<img id="image" src="<?=htmlspecialchars(urlencode($image))?>">
 	<?php endif; ?>
 </body>
 </html>
