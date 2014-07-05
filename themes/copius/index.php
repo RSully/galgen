@@ -18,6 +18,10 @@ function ea($a)
 	.col {
 		float: left;
 	}
+	/* Fix scroll issue */
+	img {
+		vertical-align: top;
+	}
 	</style>
 
 	<script type="text/javascript">
