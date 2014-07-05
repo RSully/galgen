@@ -9,13 +9,15 @@ The support for "themes" is minimal, but usable.
 Themes are just a directory containing the following:
 
 - `static/` a folder of any static assets that are required (js, css, images)
-- `config.json` a config file
+- `config.json` a config file (currently unused)
 - `index.php` the main logic, which gets our code injected into
 
 Our injected code makes a few variables visible that you can do whatever you wish with:
 
 - `$images` an array of image paths for the gallery
 - `$image` the current image, if applicable (from the `image` querystring parameter)
+- `$imagePrevious` the previous image, if applicable
+- `$imageNext` the next image, if applicable
 - `$title` the name of the gallery
 
 ## License

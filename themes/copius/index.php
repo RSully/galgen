@@ -37,11 +37,11 @@ if ( ! isset($image))
 	$(document).ready(function()
 	{
 		// Handle resizing and making the image as big as possible
+		resizeImage();
 		$(window).on('resize', function()
 		{
 			resizeImage();
 		});
-		resizeImage();
 
 		// Handle moving back/forth using keys
 		$(document).on('keyup', function(event)
